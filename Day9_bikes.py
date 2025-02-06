@@ -10,7 +10,7 @@ def DataPreprocessing():
     bikes_temp={}
 
     for i in range(1,4):
-        bikes_temp[i]=pd.read_csv(f'files\서울특별시 공공자전거 대여이력 정보_240{i}.csv',encoding='cp949')
+        bikes_temp[i]=pd.read_csv(f'files\서울특별시 공공자전거 대여이력 정보_240{i}.csv',encoding='cp949') # 서울 열린데이터광장에서 검색색
 
     bikes=pd.concat(bikes_temp,ignore_index=True)
 
@@ -54,8 +54,16 @@ def Top50(bikes):
     
     components.html(map._repr_html_(),width=1000,height=700) # 위치를 가운데로 맞추고 싶은데?
 
+# 여기는 10일 차
+def Bike_Main():
+    tab1, tab2 = st.tabs(["데이터 보기", "인기 대여소 TOP 50"])
+
+    with tab1:
+        data=DataPreprocessing()
+        st.dataframe(data.head(20))
+    with tab2:
+        Top50(data)
+
 if __name__=='__main__':
-    data=DataPreprocessing()
-    st.dataframe(data.head(20))
-    Top50(data)
+    Bike_Main()
     
