@@ -6,6 +6,7 @@ from konlpy.tag import Okt
 from wordcloud import WordCloud
 from wordcloud import STOPWORDS
 import matplotlib.pyplot as plt
+import streamlit as st
 
 
 def Req_Url(url): # 똑같은 코드가 두 개 적혀 있으므로로
@@ -54,12 +55,14 @@ def Text_Visualization(df):
     wc=WordCloud(font_path=fpath,background_color='white',stopwords=s_words) # 필요 없는 단어 없애기...
     cloud=wc.generate_from_frequencies(dict(tag))
 
-    plt.figure(figsize=(10,8))
+    fig=plt.figure(figsize=(10,8))
     plt.axis('off')
     plt.imshow(cloud)
     plt.show()
     
+    st.pyplot(fig)
 
 if __name__=='__main__':
     df=Data_Create()
+    st.dataframe(df)
     Text_Visualization(df)
